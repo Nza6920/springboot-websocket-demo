@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Floor View</title>
+    <script src="/js/websocket.js"></script>
+    <script src="/js/jquery.min.js"></script>
+    <script id="code">
+        var DEBUG_FLAG = true;
+        $(function () {
+            //启动websocket
+            createWebSocket();
+
+        });
+
+        // 当有消息推送后触发下面事件
+        function onWsMessage(evt) {
+            var jsonStr = evt.data;
+            writeToScreen(jsonStr);
+        }
+
+        function writeToScreen(message) {
+            if (DEBUG_FLAG) {
+                $("#debuggerInfo").val($("#debuggerInfo").val() + "\n" + message);
+            }
+        }
+
+        function sendMessageBySocket(all) {
+            var toUserId = $("#userId").val();
+            var msg = $("#msg").val();
+            var data = {
+                fromUserId: userId,
+                toUserId: toUserId,
+                msg: msg
+            };
+
+            // 群发消息
+            if (all) {
+                data.all = all
+            }
+
+            wsObj.send(JSON.stringify(data));
+        }
+    </script>
+</head>
+
+<body>
+<div style="padding: 10px;">
+    <!-- 显示消息-->
+    <textarea id="debuggerInfo" style="width: 800px; height: 400px"></textarea>
+    <div><label>用户：</label><input type="text" id="userId" title="用户"/></div>
+    <!-- 发送消息-->
+    <div><label>消息：</label><input type="text" id="msg" title="消息"/></div>
+    <div><input type="button" value="指定发送" onclick="sendMessageBySocket(false)"/></div>
+    <div><input type="button" value="群发消息" onclick="sendMessageBySocket(true)"/></div>
+</div>
+</body>
+</html>
