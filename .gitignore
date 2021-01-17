@@ -25,13 +25,4 @@ Intermediate/
 Build/
 */Binaries/
 Binaries/
-
-/core/target/
-
-/browser/target/
-
-/app/target/
-
-/demo/target/
-
-*.properties
+*.yml

@@ -1,4 +1,14 @@
-# spring-security-demo
-spring-security-demo
-1. gic clone https://github.com/Nza6920/spring-security-demo.git
-2. mvn install 
+# 模块组成:
+# websocket-base(springboot 集成 websocket 基础使用)
+- websocket 集成
+- 消息群发
+- 点对点通信
+- 客户端断线重连
+- 心跳检测
+
+# websocket-stomp(结合 stomp&socket.js 使用)
+- 配置
+- 消息群发
+- 点对点通信
+
+
