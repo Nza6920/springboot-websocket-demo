@@ -12,6 +12,6 @@
 
 >> ## websocket-stomp-rabbitmq(整合 rabbitmq 发送消息)
  > > - 配置
- > > - 点对点通信
+ > > - 四种方式推送消息(Exchange, Queue, AmqQueue, Topic)
 
 
