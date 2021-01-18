@@ -34,7 +34,7 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
     @Override
     public void configureMessageBroker(MessageBrokerRegistry registry) {
 
-        String[] enablePrefix = new String[]{"/topic/", "/queue/", "/exchange/"};
+        String[] enablePrefix = new String[]{"/topic/", "/queue/", "/exchange/", "/amq/queue/"};
 
         // 配置 需要 Stomp 代理的前缀
         registry.enableStompBrokerRelay(enablePrefix)

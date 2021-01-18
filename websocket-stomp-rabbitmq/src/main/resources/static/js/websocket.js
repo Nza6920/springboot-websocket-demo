@@ -12,12 +12,22 @@ function connect() {
 
             // 订阅 exchange 点对点
             stompClient.subscribe('/exchange/send2User/user' + userId, function (response) {
-                writeToScreen("主题: exchange, 点对点消息: " + response.body);
+                writeToScreen("主题 exchange-点对点消息: " + response.body);
             });
 
             // 订阅 exchange 群发
             stompClient.subscribe('/exchange/all/user', function (response) {
-                writeToScreen("主题: exchange, 群发消息: " + response.body);
+                writeToScreen("主题 exchange-群发消息: " + response.body);
+            });
+
+            // 订阅 queue 点对点
+            stompClient.subscribe('/queue/user' + userId, function (response) {
+                writeToScreen("主题 queue-点对点消息: " + response.body);
+            });
+
+            // 订阅 amq queue
+            stompClient.subscribe('/amq/queue/amqQueue', function (response) {
+                writeToScreen("主题 amqQueue消息: " + response.body);
             });
 
         }, function (error) {
