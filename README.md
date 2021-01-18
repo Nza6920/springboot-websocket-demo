@@ -10,4 +10,8 @@
 > > - 配置
 > > - 点对点通信
 
+>> ## websocket-stomp-rabbitmq(整合 rabbitmq 发送消息)
+ > > - 配置
+ > > - 点对点通信
+
 

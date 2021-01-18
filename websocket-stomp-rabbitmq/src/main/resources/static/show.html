@@ -53,7 +53,30 @@
             };
             stompClient.send("/send2User/amqQueue", {}, JSON.stringify(msg));
         }
+
+        function send2UserByTopic() {
+            var toUserId = $("#userId").val();
+            var msg = {
+                fromUserId: userId,
+                toUserId: toUserId,
+                msg: $("#msg").val()
+            };
+            stompClient.send("/send2User/topic", {}, JSON.stringify(msg));
+        }
+
+        function send2AllByTopic() {
+            var msg = {
+                fromUserId: userId,
+                msg: $("#msg").val()
+            };
+            stompClient.send("/send2All/topic", {}, JSON.stringify(msg));
+        }
     </script>
+    <style>
+        div input {
+            margin-top: 3px;
+        }
+    </style>
 </head>
 
 <body>
@@ -69,6 +92,8 @@
     <div><input type="button" value="群发消息(基于Exchange订阅消息)" onclick="send2AllByExchange()"/></div>
     <div><input type="button" value="点对点发送消息(基于Queue订阅消息)" onclick="send2UserByQueue()"/></div>
     <div><input type="button" value="发送消息(基于AmqQueue订阅消息)" onclick="send2UserByAmqQueue()"/></div>
+    <div><input type="button" value="发送消息(基于Topic订阅消息)" onclick="send2UserByTopic()"/></div>
+    <div><input type="button" value="发送消息(基于Topic订阅群发消息)" onclick="send2AllByTopic()"/></div>
 </div>
 </body>
 </html>

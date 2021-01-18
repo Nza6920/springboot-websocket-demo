@@ -30,6 +30,16 @@ function connect() {
                 writeToScreen("主题 amqQueue消息: " + response.body);
             });
 
+            // 订阅 topic
+            stompClient.subscribe('/topic/user' + userId, function (response) {
+                writeToScreen("主题 topic消息: " + response.body);
+            });
+
+            // 订阅 topic 群发
+            stompClient.subscribe('/topic/chat', function (response) {
+                writeToScreen("主题 topic群发消息: " + response.body);
+            });
+
         }, function (error) {
             wsCreateHandler && clearTimeout(wsCreateHandler);
             wsCreateHandler = setTimeout(function () {
