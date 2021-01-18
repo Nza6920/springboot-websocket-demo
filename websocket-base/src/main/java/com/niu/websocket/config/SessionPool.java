@@ -20,7 +20,7 @@ public class SessionPool {
     /**
      * 会话池 <ID, session>
      */
-    private static Map<String, Session> POOL = Maps.newConcurrentMap();
+    private static final Map<String, Session> POOL = Maps.newConcurrentMap();
 
     /**
      * 关闭连接

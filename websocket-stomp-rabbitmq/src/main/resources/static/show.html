@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Floor View</title>
+    <script src="/js/websocket.js"></script>
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/sockjs.min.js"></script>
+    <script src="/js/stomp.min.js"></script>
+    <script id="code">
+        var DEBUG_FLAG = true;
+        $(function () {
+            //启动websocket
+            connect();
+        });
+
+        function send2UserByExchange() {
+            var toUserId = $("#userId").val();
+            var msg = {
+                fromUserId: userId,
+                toUserId: toUserId,
+                msg: $("#msg").val()
+            };
+
+            stompClient.send("/send2User/exchange", {}, JSON.stringify(msg));
+        }
+
+        function send2AllByExchange() {
+            var msg = {
+                fromUserId: userId,
+                msg: $("#msg").val()
+            };
+            stompClient.send("/send2All/exchange", {}, JSON.stringify(msg));
+        }
+    </script>
+</head>
+
+<body>
+<div style="padding: 20px;">
+    <!-- 显示消息-->
+    <label>
+        <textarea id="debuggerInfo" style="width:800px;height:200px;"></textarea>
+    </label>
+    <!-- 发送消息-->
+    <div><label>消息：<input type="text" id="msg"/></label></div>
+    <div><label>接受用户：<input type="text" id="userId"/></label></div>
+    <div><input type="button" value="点对点发送消息(基于Exchange订阅消息)" onclick="send2UserByExchange()"/></div>
+    <div><input type="button" value="群发消息(基于Exchange订阅消息)" onclick="send2AllByExchange()"/></div>
+</div>
+</body>
+</html>

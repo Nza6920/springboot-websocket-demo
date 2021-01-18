@@ -27,13 +27,20 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
 
     @Override
     public void configureMessageBroker(MessageBrokerRegistry registry) {
+
+        String[] enablePrefix = new String[]{"/topic/", "/queue/", "/user/"};
+
         // 配置允许的代理前缀
-        registry.enableSimpleBroker("/topic/", "/queue/", "/user/");
+        registry.enableSimpleBroker(enablePrefix);
 
         // 配置点对点发送前缀
 //        registry.setUserDestinationPrefix("/user/");
 
         // 配置客户端前缀
 //        registry.setApplicationDestinationPrefixes("/app");
+
+        registry.enableStompBrokerRelay(enablePrefix);
+
+
     }
 }

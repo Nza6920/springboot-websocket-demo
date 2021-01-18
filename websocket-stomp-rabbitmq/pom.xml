@@ -9,8 +9,7 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>websocket-stomp</artifactId>
-    <description>springboot websocket 结合 stomp 与 socket js 的使用</description>
+    <artifactId>websocket-stomp-rabbitmq</artifactId>
 
     <dependencies>
         <dependency>
