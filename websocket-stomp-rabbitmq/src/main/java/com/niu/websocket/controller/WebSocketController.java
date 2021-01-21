@@ -6,6 +6,8 @@ import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.text.MessageFormat;
+import java.util.Arrays;
 import java.util.Map;
 
 /**
@@ -21,9 +23,6 @@ public class WebSocketController {
     @Autowired
     private SimpMessagingTemplate simpMessagingTemplate;
 
-    @Autowired
-    private StompProperties stompProperties;
-
     /**
      * 通过 Exchange 点对点发送消息
      * 需要手动创建Exchange
@@ -37,7 +36,6 @@ public class WebSocketController {
         String fromUserId = message.get("fromUserId");
         String toUserId = message.get("toUserId");
         String msg = "来自 [" + fromUserId + "] 的消息: " + message.get("msg");
-
         String exchange = "send2User";
         String destination = "/exchange/" + exchange + "/user" + toUserId;
 

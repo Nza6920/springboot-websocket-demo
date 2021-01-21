@@ -10,6 +10,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>websocket-stomp-rabbitmq</artifactId>
+    <description>演示 stomp 基础 rabbitmq 推送消息</description>
 
     <dependencies>
         <dependency>

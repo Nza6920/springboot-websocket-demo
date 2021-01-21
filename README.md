@@ -13,5 +13,6 @@
 >> ## websocket-stomp-rabbitmq(整合 rabbitmq 发送消息)
  > > - 配置
  > > - 四种方式推送消息(Exchange, Queue, AmqQueue, Topic)
+ > > - 支持 nginx 负载均衡 (配置见 resources/websocket.conf)
 
 

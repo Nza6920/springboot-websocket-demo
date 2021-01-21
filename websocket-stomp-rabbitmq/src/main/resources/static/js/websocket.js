@@ -1,9 +1,9 @@
 var stompClient = null;
 var wsCreateHandler = null;
 var userId = null;
+var host = null;
 
 function connect() {
-    var host = window.location.host; // 带有端口号
     userId = GetQueryString("userId");
     var socket = new SockJS("http://" + host + "/websocket");
     stompClient = Stomp.over(socket);
