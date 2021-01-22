@@ -24,6 +24,12 @@
  > > 架构图 resources/架构图.png  
  > > 端口信息 resources/端口.txt 
 
+>> ## websocket-stomp-reliability(消息可靠投递)
+ > > - 手动ACK
+ > > - 持久化队列
+
+
+
 
 
 

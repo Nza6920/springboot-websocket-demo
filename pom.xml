@@ -20,6 +20,7 @@
         <module>websocket-stomp</module>
         <module>websocket-stomp-rabbitmq</module>
         <module>websocket-stomp-cloud</module>
+        <module>websocket-stomp-reliability</module>
     </modules>
 
     <dependencies>
