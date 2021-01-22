@@ -1,0 +1,20 @@
+server:
+  port: 9012
+
+spring:
+  application:
+    name: websocketserver
+
+
+websocket:
+  stomp:
+    host: **
+    port: **
+    username: **
+    password: **
+    virtualhost: **
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:9010/eureka/

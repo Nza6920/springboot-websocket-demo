@@ -15,4 +15,15 @@
  > > - 四种方式推送消息(Exchange, Queue, AmqQueue, Topic)
  > > - 支持 nginx 负载均衡 (配置见 resources/websocket.conf)
 
+>> ## websocket-stomp-cloud(websocket 微服务负载均衡)
+ > > - cloud-client (客户端)
+ > > - cloud-eureka (eureka 注册中心) 注:  **优先启动**
+ > > - cloud-gateway (微服务网关)
+ > > - cloud-stomp (消息推送服务)
+ > >
+ > > 架构图 resources/架构图.png  
+ > > 端口信息 resources/端口.txt 
+
+
+
 

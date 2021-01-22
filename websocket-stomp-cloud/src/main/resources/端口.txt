@@ -1,0 +1,4 @@
+eureka: 9010
+gateway: 9011
+stomp: 9012
+client: 9013

@@ -1,0 +1,33 @@
+server:
+  port: 9011
+spring:
+  application:
+    name: service-gateway
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+      # 自定义路由
+      routes:
+        - id: websocket_routes
+          # 判断条件
+          predicates:
+            - Path=/websocketserver/**
+          # 负载均衡 转发到服务名为  websocketserver 的服务上
+          uri: lb://websocketserver
+          filters:
+            - StripPrefix=1
+
+# 单节点OK
+#      routes:
+#        - id: websocket
+#          predicates:
+#            - Path=/websocket_server/**
+#          uri: http://localhost:8071
+#          filters:
+#            - StripPrefix=1
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:9010/eureka/
