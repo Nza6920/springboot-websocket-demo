@@ -28,6 +28,16 @@
  > > - 手动ACK
  > > - 持久化队列
 
+>> ## websocket-client(Java 原生客户端实现消息推送)
+ > > - 原生客户端实现消息推送
+ > >
+ > > 架构图 resources/架构图.png
+
+>> ## websocket-client-stomp(Java stomp客户端实现消息推送)
+ > > - stomp客户端实现消息推送
+ > >
+ > > 架构图 resources/架构图.png 
+
 
 
 

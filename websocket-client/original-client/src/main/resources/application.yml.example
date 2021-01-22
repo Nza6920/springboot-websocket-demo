@@ -1,0 +1,3 @@
+websocket:
+  chat:
+    endpoint: "ws://localhost:9021/websocket/"

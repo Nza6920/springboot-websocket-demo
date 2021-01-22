@@ -1,0 +1,7 @@
+server:
+  port: 9023
+
+logging:
+  config: classpath:logback-spring.xml
+  level:
+    root: info

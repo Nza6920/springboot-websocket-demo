@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Floor View</title>
+    <script src="/js/websocket.js"></script>
+    <script src="/js/jquery.min.js"></script>
+    <script id="code">
+        var DEBUG_FLAG = true;
+        $(function () {
+            //启动websocket
+            createWebSocket();
+
+        });
+
+        // 当有消息推送后触发下面事件
+        function onWsMessage(evt) {
+            var jsonStr = evt.data;
+            writeToScreen(jsonStr);
+        }
+
+        function writeToScreen(message) {
+            if (DEBUG_FLAG) {
+                $("#debuggerInfo").val($("#debuggerInfo").val() + "\n" + message);
+            }
+        }
+
+        function sendMessageBySocket() {
+            var toUserId = $("#userId").val();
+            var msg = $("#msg").val();
+            var data = {"fromUserId": userId, "toUserId": toUserId, "msg": msg};
+            wsObj.send(JSON.stringify(data));
+        }
+    </script>
+    <style>
+        .wrapper {
+            padding: 10px;
+        }
+
+        .wrapper div {
+            margin-top: 5px;
+        }
+    </style>
+</head>
+
+<body>
+<div class="wrapper">
+    <!-- 显示消息-->
+    <div>
+        <textarea id="debuggerInfo" style="width:100%;height:200px;"></textarea>
+    </div>
+    <div><label for="userId">用户：</label><input type="text" id="userId"/></div>
+    <!-- 发送消息-->
+    <div><label for="msg">消息：</label><input type="text" id="msg"/></div>
+    <div><input type="button" value="发送消息" onclick="sendMessageBySocket()"/></div>
+</div>
+</body>
+</html>

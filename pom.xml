@@ -21,6 +21,8 @@
         <module>websocket-stomp-rabbitmq</module>
         <module>websocket-stomp-cloud</module>
         <module>websocket-stomp-reliability</module>
+        <module>websocket-client</module>
+        <module>websocket-client-stomp</module>
     </modules>
 
     <dependencies>
