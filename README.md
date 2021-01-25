@@ -33,6 +33,10 @@
  > >
  > > 架构图 resources/架构图.png
 
+> ## websocket-authentication(websocket 授权认证)
+ > > - websocket 接口鉴权 (发送消息、订阅主题等操作)
+
+
 
 
 
