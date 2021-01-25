@@ -4,7 +4,6 @@ import cn.hutool.core.collection.CollUtil;
 import com.niu.websocket.security.config.AdminUserDetails;
 import com.niu.websocket.security.dao.UmsAdminMapper;
 import com.niu.websocket.security.dao.UmsAdminRoleRelationDao;
-import com.niu.websocket.security.dao.UmsAdminRoleRelationMapper;
 import com.niu.websocket.security.entity.Asserts;
 import com.niu.websocket.security.entity.UmsAdmin;
 import com.niu.websocket.security.entity.UmsAdminExample;
@@ -12,8 +11,7 @@ import com.niu.websocket.security.entity.UmsResource;
 import com.niu.websocket.security.services.UmsAdminCacheService;
 import com.niu.websocket.security.services.UmsAdminService;
 import com.niu.websocket.security.util.JwtTokenUtil;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.AuthenticationException;
@@ -30,21 +28,23 @@ import java.util.List;
  * Created by macro on 2018/4/26.
  */
 @Service
+@Slf4j
 public class UmsAdminServiceImpl implements UmsAdminService {
-    private static final Logger LOGGER = LoggerFactory.getLogger(UmsAdminServiceImpl.class);
+
     @Autowired
     private JwtTokenUtil jwtTokenUtil;
+
     @Autowired
     private PasswordEncoder passwordEncoder;
+
     @Autowired
     private UmsAdminMapper adminMapper;
-    @Autowired
-    private UmsAdminRoleRelationMapper adminRoleRelationMapper;
+
     @Autowired
     private UmsAdminRoleRelationDao adminRoleRelationDao;
+
     @Autowired
     private UmsAdminCacheService adminCacheService;
-
 
     @Override
     public String login(String username, String password) {
@@ -60,9 +60,9 @@ public class UmsAdminServiceImpl implements UmsAdminService {
             }
             UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
             SecurityContextHolder.getContext().setAuthentication(authentication);
-            token = jwtTokenUtil.generateToken(userDetails);
+            token = jwtTokenUtil.generateToken(userDetails.getUsername());
         } catch (AuthenticationException e) {
-            LOGGER.warn("登录异常:{}", e.getMessage());
+            log.warn("登录异常:{}", e.getMessage());
         }
         return token;
     }
@@ -104,7 +104,9 @@ public class UmsAdminServiceImpl implements UmsAdminService {
     @Override
     public UmsAdmin getAdminByUsername(String username) {
         UmsAdmin admin = adminCacheService.getAdmin(username);
-        if (admin != null) return admin;
+        if (admin != null) {
+            return admin;
+        }
         UmsAdminExample example = new UmsAdminExample();
         example.createCriteria().andUsernameEqualTo(username);
         List<UmsAdmin> adminList = adminMapper.selectByExample(example);

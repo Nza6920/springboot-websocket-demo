@@ -5,12 +5,10 @@ import com.github.pagehelper.PageHelper;
 import com.niu.websocket.security.dao.UmsResourceMapper;
 import com.niu.websocket.security.entity.UmsResource;
 import com.niu.websocket.security.entity.UmsResourceExample;
-import com.niu.websocket.security.services.UmsAdminCacheService;
 import com.niu.websocket.security.services.UmsResourceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -21,35 +19,6 @@ public class UmsResourceServiceImpl implements UmsResourceService {
 
     @Autowired
     private UmsResourceMapper resourceMapper;
-
-    @Autowired
-    private UmsAdminCacheService adminCacheService;
-
-    @Override
-    public int create(UmsResource umsResource) {
-        umsResource.setCreateTime(new Date());
-        return resourceMapper.insert(umsResource);
-    }
-
-    @Override
-    public int update(Long id, UmsResource umsResource) {
-        umsResource.setId(id);
-        int count = resourceMapper.updateByPrimaryKeySelective(umsResource);
-        adminCacheService.delResourceListByResource(id);
-        return count;
-    }
-
-    @Override
-    public UmsResource getItem(Long id) {
-        return resourceMapper.selectByPrimaryKey(id);
-    }
-
-    @Override
-    public int delete(Long id) {
-        int count = resourceMapper.deleteByPrimaryKey(id);
-        adminCacheService.delResourceListByResource(id);
-        return count;
-    }
 
     @Override
     public List<UmsResource> list(Long categoryId, String nameKeyword, String urlKeyword, Integer pageSize, Integer pageNum) {

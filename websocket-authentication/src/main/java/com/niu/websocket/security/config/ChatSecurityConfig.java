@@ -18,6 +18,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * chat-security模块相关配置
+ * @author Zian.Niu
  */
 @Configuration
 @EnableWebSecurity
@@ -26,9 +27,11 @@ public class ChatSecurityConfig extends SecurityConfig {
 
     @Autowired
     private UmsAdminService adminService;
+
     @Autowired
     private UmsResourceService resourceService;
 
+    @Override
     @Bean
     public UserDetailsService userDetailsService() {
         //获取登录用户信息
@@ -37,16 +40,13 @@ public class ChatSecurityConfig extends SecurityConfig {
 
     @Bean
     public DynamicSecurityService dynamicSecurityService() {
-        return new DynamicSecurityService() {
-            @Override
-            public Map<String, ConfigAttribute>   loadDataSource() {
-                Map<String, ConfigAttribute> map = new ConcurrentHashMap<>();
-                List<UmsResource> resourceList = resourceService.listAll();
-                for (UmsResource resource : resourceList) {
-                    map.put(resource.getUrl(), new org.springframework.security.access.SecurityConfig(resource.getId() + ":" + resource.getName()));
-                }
-                return map;
+        return () -> {
+            Map<String, ConfigAttribute> map = new ConcurrentHashMap<>();
+            List<UmsResource> resourceList = resourceService.listAll();
+            for (UmsResource resource : resourceList) {
+                map.put(resource.getUrl(), new org.springframework.security.access.SecurityConfig(resource.getId() + ":" + resource.getName()));
             }
+            return map;
         };
     }
 }

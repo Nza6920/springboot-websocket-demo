@@ -6,6 +6,7 @@ import org.apache.commons.lang3.StringUtils;
 import javax.websocket.Session;
 import java.io.IOException;
 import java.util.Map;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
  * Session 存储器

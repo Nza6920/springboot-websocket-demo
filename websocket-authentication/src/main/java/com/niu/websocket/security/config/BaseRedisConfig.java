@@ -63,5 +63,4 @@ public class BaseRedisConfig {
     public RedisService redisService(){
         return new RedisServiceImpl();
     }
-
 }

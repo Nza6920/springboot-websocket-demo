@@ -3,6 +3,10 @@ package com.niu.socket.stomp;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+import java.util.concurrent.ArrayBlockingQueue;
+import java.util.concurrent.ThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
+
 /**
  * 消息服务启动类
  *
@@ -15,4 +19,6 @@ public class Application {
     public static void main(String[] args) {
         SpringApplication.run(Application.class, args);
     }
+
+
 }

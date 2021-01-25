@@ -1,6 +1,8 @@
 package com.niu.websocket.socket;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.messaging.simp.config.ChannelRegistration;
 import org.springframework.messaging.simp.config.MessageBrokerRegistry;
@@ -9,8 +11,12 @@ import org.springframework.web.socket.config.annotation.StompEndpointRegistry;
 import org.springframework.web.socket.config.annotation.WebSocketMessageBrokerConfigurer;
 import org.springframework.web.socket.server.HandshakeInterceptor;
 
+/**
+ * @author Zian.Niu
+ */
 @Configuration
 @EnableWebSocketMessageBroker
+@EnableConfigurationProperties({StompProperties.class})
 public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
 
     @Autowired

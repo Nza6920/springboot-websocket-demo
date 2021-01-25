@@ -30,6 +30,7 @@ import java.util.Iterator;
 
 /**
  * 功能:频道拦截器,类似管道,获取消息的一些meta数据
+ * @author Zian.Niu
  */
 @Component
 @Slf4j
@@ -60,10 +61,10 @@ public class SocketChanelInterceptor implements ChannelInterceptor {
                 throw new IllegalArgumentException("抱歉，您没有访问权限");
             }
             jwtToken = jwtToken.substring(tokenHead.length());
-            String username = jwtTokenUtil.getUserNameFromToken(jwtToken);
+            String username = jwtTokenUtil.getSubFromToken(jwtToken);
             if (username != null) {
                 UserDetails userDetails = this.userDetailsService.loadUserByUsername(username);
-                if (jwtTokenUtil.validateToken(jwtToken, userDetails)) {
+                if (jwtTokenUtil.validateToken(jwtToken, userDetails.getUsername())) {
                     UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
                     SecurityContextHolder.getContext().setAuthentication(authentication);
                     accessor.setUser(authentication);
@@ -72,7 +73,7 @@ public class SocketChanelInterceptor implements ChannelInterceptor {
                 throw new IllegalArgumentException("抱歉，您没有访问权限");
             }
         } else if(StompCommand.SUBSCRIBE.equals(accessor.getCommand())) {
-            String topic = accessor.getDestination().toString();
+            String topic = accessor.getDestination();
             Authentication authentication = (Authentication)accessor.getUser();
             System.out.println(topic);
             boolean result = checkSubscribe(authentication, topic);
@@ -80,7 +81,7 @@ public class SocketChanelInterceptor implements ChannelInterceptor {
             if(!result)
             {
                 // 这里返回一个自定义提示消息，由于没有指令和相关参数，所以不会真正执行订阅
-                Message<String> msg = new Message<String>() {
+                return new Message<String>() {
                     @Override
                     public String getPayload() {
                         return "主题订阅失败";
@@ -91,7 +92,6 @@ public class SocketChanelInterceptor implements ChannelInterceptor {
                         return null;
                     }
                 };
-                return msg;
                 // 如果抛出异常，则会导致前端面页连接也会断开，不断重连
                 //throw new IllegalArgumentException("抱歉，没有权限订阅该主题");
             }
@@ -109,9 +109,8 @@ public class SocketChanelInterceptor implements ChannelInterceptor {
         if (CollUtil.isEmpty(configAttributes)) {
             return false;
         }
-        Iterator<ConfigAttribute> iterator = configAttributes.iterator();
-        while (iterator.hasNext()) {
-            ConfigAttribute configAttribute = iterator.next();
+
+        for (ConfigAttribute configAttribute : configAttributes) {
             //将访问所需资源或用户拥有资源进行比对
             String needAuthority = configAttribute.getAttribute();
             for (GrantedAuthority grantedAuthority : authentication.getAuthorities()) {

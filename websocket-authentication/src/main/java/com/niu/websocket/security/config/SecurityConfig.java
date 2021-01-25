@@ -28,15 +28,19 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception {
+
         ExpressionUrlAuthorizationConfigurer<HttpSecurity>.ExpressionInterceptUrlRegistry registry = httpSecurity
                 .authorizeRequests();
+
         //不需要保护的资源路径允许访问
         for (String url : ignoreUrlsConfig().getUrls()) {
-            registry.antMatchers(url).permitAll();
+            registry.antMatchers(url)
+                    .permitAll();
         }
         //允许跨域请求的OPTIONS请求
         registry.antMatchers(HttpMethod.OPTIONS)
                 .permitAll();
+
         // 任何请求需要身份认证
         registry.and()
                 .authorizeRequests()
@@ -56,9 +60,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 // 自定义权限拦截器JWT过滤器
                 .and()
                 .addFilterBefore(jwtAuthenticationTokenFilter(), UsernamePasswordAuthenticationFilter.class);
+
         //有动态权限配置时添加动态权限校验过滤器
         if (dynamicSecurityService != null) {
-            registry.and().addFilterBefore(dynamicSecurityFilter(), FilterSecurityInterceptor.class);
+            registry.and()
+                    .addFilterBefore(dynamicSecurityFilter(), FilterSecurityInterceptor.class);
         }
     }
 
@@ -122,5 +128,4 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     public DynamicSecurityMetadataSource dynamicSecurityMetadataSource() {
         return new DynamicSecurityMetadataSource();
     }
-
 }

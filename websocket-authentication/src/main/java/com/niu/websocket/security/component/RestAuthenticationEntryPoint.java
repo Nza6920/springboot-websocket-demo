@@ -12,6 +12,8 @@ import java.io.IOException;
 
 /**
  * 自定义返回结果：未登录或登录过期
+ *
+ * @author Zian.Niu
  */
 public class RestAuthenticationEntryPoint implements AuthenticationEntryPoint {
     @Override

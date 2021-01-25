@@ -12,10 +12,14 @@ import java.util.stream.Collectors;
 
 /**
  * SpringSecurity需要的用户详情
+ * @author Zian.Niu
  */
 public class AdminUserDetails implements UserDetails {
+
     private UmsAdmin umsAdmin;
+
     private List<UmsResource> resourceList;
+
     public AdminUserDetails(UmsAdmin umsAdmin, List<UmsResource> resourceList) {
         this.umsAdmin = umsAdmin;
         this.resourceList = resourceList;
